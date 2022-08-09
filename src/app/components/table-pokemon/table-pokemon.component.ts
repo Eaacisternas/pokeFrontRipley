@@ -18,36 +18,36 @@ export class TablePokemonComponent implements OnInit {
   constructor(private pokeService: PokedexService) {}
 
   ngOnInit(): void {
-    this.getPokemons();
+    // this.getPokemons();
   }
-  getPokemons() {
-    let pokemonData;
-    for (let i = 1; i <= 150; i++) {
-      this.pokeService.getPokemons(i).subscribe(
-        (res) => {
-          let types: any[] = [];
-          res.type;
-          for (let tipo = 0; tipo < res.types.length; tipo++) {
-            types.push(' ' + res.types[tipo].type.name + ' ');
-          }
-          pokemonData = {
-            id: i,
-            image: res.sprites.front_default,
-            name: res.name,
-            type: types,
-            weight: res.weight + 'Kg',
-          };
-          this.data.push(pokemonData);
-          this.datasource = new MatTableDataSource<any>(this.data);
-          this.datasource.paginator = this.paginator;
-          console.log(pokemonData);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    }
-  }
+  // getPokemons() {
+  //   let pokemonData;
+  //   for (let i = 1; i <= 150; i++) {
+  //     this.pokeService.getPokemons(i).subscribe(
+  //       (res) => {
+  //         let types: any[] = [];
+  //         res.type;
+  //         for (let tipo = 0; tipo < res.types.length; tipo++) {
+  //           types.push(' ' + res.types[tipo].type.name + ' ');
+  //         }
+  //         pokemonData = {
+  //           id: i,
+  //           image: res.sprites.front_default,
+  //           name: res.name,
+  //           type: types,
+  //           weight: res.weight + 'Kg',
+  //         };
+  //         this.data.push(pokemonData);
+  //         this.datasource = new MatTableDataSource<any>(this.data);
+  //         this.datasource.paginator = this.paginator;
+  //         console.log(pokemonData);
+  //       },
+  //       (err) => {
+  //         console.log(err);
+  //       }
+  //     );
+  //   }
+  // }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.datasource.filter = filterValue.trim().toLowerCase();
