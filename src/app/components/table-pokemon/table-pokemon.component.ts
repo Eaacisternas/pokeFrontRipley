@@ -16,9 +16,8 @@ export class TablePokemonComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   pokemons = [];
   constructor(private pokeService: PokedexService) {}
-
+  cargaTabla = false
   ngOnInit(): void {
-
   }
 
   getPokemons() {
@@ -42,6 +41,7 @@ export class TablePokemonComponent implements OnInit {
           this.datasource.paginator = this.paginator;
       }
     })
+    this.cargaTabla = true
   }
   processPokemons(){
     this.pokeService.processPokemons().subscribe((res)=>{

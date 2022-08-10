@@ -5,7 +5,10 @@
       <button mat-raised-button color="accent"  (click)="processPokemons()"name="procesar" style="width: 100%;">Procesar archivo</button>
     </div>
   </div>
-<div fxLayout="column" fxLayoutAlign ="center center" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="70" fxFlex.xl="70" class="oculto">
+
+<div *ngIf="!cargaTabla" fxLayout="column" fxLayoutAlign ="center center" >
+  <img src="../../assets/img/pokedex.png" alt="" width="600px"style="margin-left:20rem"> </div>
+<div *ngIf="cargaTabla" fxLayout="column" fxLayoutAlign ="center center" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="70" fxFlex.xl="70">
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="datasource" matSort>
       <ng-container matColumnDef="id">
