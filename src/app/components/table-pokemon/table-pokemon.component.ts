@@ -18,55 +18,37 @@ export class TablePokemonComponent implements OnInit {
   constructor(private pokeService: PokedexService) {}
 
   ngOnInit(): void {
-    // this.getPokemons();
-  }
-  // getPokemons() {
-  //   let pokemonData;
-  //   for (let i = 1; i <= 150; i++) {
-  //     this.pokeService.getPokemons(i).subscribe(
-  //       (res) => {
-  //         let types: any[] = [];
-  //         res.type;
-  //         for (let tipo = 0; tipo < res.types.length; tipo++) {
-  //           types.push(' ' + res.types[tipo].type.name + ' ');
-  //         }
-  //         pokemonData = {
-  //           id: i,
-  //           image: res.sprites.front_default,
-  //           name: res.name,
-  //           type: types,
-  //           weight: res.weight + 'Kg',
-  //         };
-  //         this.data.push(pokemonData);
-  //         this.datasource = new MatTableDataSource<any>(this.data);
-  //         this.datasource.paginator = this.paginator;
-  //         console.log(pokemonData);
-  //       },
-  //       (err) => {
-  //         console.log(err);
-  //       }
-  //     );
-  //   }
-  // }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.datasource.filter = filterValue.trim().toLowerCase();
 
-    if (this.datasource.paginator) {
-      this.datasource.paginator.firstPage();
-    }
   }
 
-  toppings = new FormControl('');
+  getPokemons() {
+    let pokemonData;
 
-  toppingList: string[] = [
-    'Generación 1',
-    'Generación 2',
-    'Generación 3',
-    'Generación 4',
-    'Generación 5',
-    'Generación 6',
-    'Generación 7',
-    'Generación 8',
-  ];
+    this.pokeService.getPokemons().subscribe((res)=>{
+      for (let pokemons = 0; pokemons < res.length; pokemons++){
+        let types: any[] = [];
+           for (let tipo = 0; tipo < res[pokemons].types.length; tipo++) {
+             types.push(res[pokemons].types[tipo].type.name);
+           }
+           pokemonData = {
+            id: res[pokemons].order,
+            image: res[pokemons].sprites.front_default,
+            name: res[pokemons].name,
+            types: types,
+            weight: res[pokemons].weight + 'Kg',
+          };
+          this.data.push(pokemonData);
+          this.datasource = new MatTableDataSource<any>(this.data);
+          this.datasource.paginator = this.paginator;
+      }
+    })
+  }
+  processPokemons(){
+    this.pokeService.processPokemons().subscribe((res)=>{
+      console.log(res)
+    },
+    (err)=>{
+      console.log(err)
+    })
+  }
 }

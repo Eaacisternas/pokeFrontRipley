@@ -6,9 +6,12 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class PokedexService {
-  // baseUrl = environment.baseUrl;
-  // constructor(private http: HttpClient) {}
-  // getPokemons(index: Number|undefined){
-  //   return this.http.get<any>(this.baseUrl + '/pokemon/'+index);
-  // }
+  baseUrl = environment.baseUrl;
+  constructor(private http: HttpClient) {}
+  getPokemons(){
+    return this.http.get<any>(this.baseUrl + '/listarPokemon');
+  }
+  processPokemons(){
+    return this.http.post(this.baseUrl + '/procesarPokemon',null);
+  }
 }
