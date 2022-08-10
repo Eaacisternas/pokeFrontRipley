@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:7070',
+  baseUrl: 'https://pokebackripley.herokuapp.com',
 };
